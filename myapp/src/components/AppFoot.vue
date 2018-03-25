@@ -29,12 +29,6 @@
       </a>
     </li>
     <li>
-      <a href="http://amazeui.org/getting-started">
-        <span class="am-icon-download"></span>
-        <span class="am-navbar-label">下载使用</span>
-      </a>
-    </li>
-    <li>
       <router-link to="./login"><a href="">
         <span class="am-icon-location-arrow"></span>
         <span class="am-navbar-label">登录</span>
@@ -43,7 +37,6 @@
   </ul>
 </div>
 </div>
-
 </div>
 </template>
 
@@ -60,5 +53,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>
