@@ -8,14 +8,28 @@
         </mt-swipe-item>
       </mt-swipe>
     </div>
-    <div>
-    </div>
+    <table width="100%" style="margin-top:2%">
+      <tr>
+        <td  v-for="(img,index) in menuData.slice(0,4)"  height="100px"  align="center"  :key="index">
+          <div><img style="width:50px" :src="img.pic"/></div>
+          <div>{{img.text}}</div>
+        </td>
+      </tr>
+      <tr>
+        <td  v-for="(img,index) in menuData.slice(4,8)"  height="20%"   align="center" :key="index">
+          <div><img style="width:50px" :src="img.pic"/></div>
+          <div>{{img.text}}</div>
+        </td>
+      </tr>
+    </table>
+    <index-list></index-list>
   </div>
 
 </div>
 </template>
 
 <script>
+import IndexList from './indexList'
 export default {
   
   name: 'AppIndex',
@@ -28,28 +42,22 @@ export default {
         {pic: require('../img/3.jpg')}
       ],
       menuData:[
-       // {pic: require('../img/menuicon/meishi.webp')},
-     //   {pic: require('../img/menuicon/chaoshi.webp')},
-      //  {pic: require('../img/menuicon/shucai.webp')},
-      //  {pic: require('../img/menuicon/tiandian.webp')},
-      //  {pic: require('../img/menuicon/zhuansong.webp')},
-       // {pic: require('../img/menuicon/zhengcan.webp')},
-      //  {pic: require('../img/menuicon/kuaican.webp')},
-       // {pic: require('../img/menuicon/hanbao.webp')},
+        {pic: require('../img/menuicon/meishi.jpg'),text:'美食'},
+        {pic: require('../img/menuicon/chaoshi.jpg'),text:'美团超市'},
+        {pic: require('../img/menuicon/shucai.jpg'),text:'生鲜蔬菜'},
+        {pic: require('../img/menuicon/tiandian.jpg'),text:'甜点饮品'},
+        {pic: require('../img/menuicon/zhuansong.jpg'),text:'美团专送'},
+        {pic: require('../img/menuicon/zhengcan.jpg'),text:'正餐优选'},
+        {pic: require('../img/menuicon/kuaican.jpg'),text:'快餐小吃'},
+        {pic: require('../img/menuicon/hanbao.jpg'),text:'汉堡披萨'},
       ]
     }
   },
   created(){
-    // this.$http.get('/api/api/v1/poi/mget')
-    // .then(data=>console.log(data))
-    $.ajax({
-      url:'https://github.com/bxm0927/vue-meituan/blob/master/mock/seller.json',
-      type:'GET',
-      dataType:'JSONP',
-      success:function(res){
-        console.log(res.data)
-      }
-    })
+   
+  },
+  components:{
+    IndexList
   }
 }
 </script>
