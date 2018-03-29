@@ -1,0 +1,14 @@
+{
+    "images":[
+     
+        {
+            "src":"/static/img/1.jpg","remark":"lunbo1"
+        },
+        {
+            "src":"/static/img/2.jpg","remark":"lunbo2"
+        },
+        {
+            "src":"/static/img/3.jpg","remark":"lunbo3"
+        }    
+    ]
+}

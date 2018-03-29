@@ -10,13 +10,14 @@ module.exports = {
       assetsSubDirectory: 'static',
       assetsPublicPath: '/',
       proxyTable: {
-        // '/api':{
-        //   target:'http://waimaiopen.meituan.com',
-        //   changeOrigin:true,
-        //   pathRewrite:{
-        //     '^/api':'http://waimaiopen.meituan.com'
-        //   }
-        // }
+      //    '/api': {
+      // //     // 测试环境
+      //      target: 'http://43.226.35.224/api/',  // 接口域名
+      //      changeOrigin: true,  //是否跨域
+      //      pathRewrite: {
+      //         '^/api': '/'   //需要rewrite重写的,
+      //      }              
+      //  }
       },
   
       // Various Dev Server settings

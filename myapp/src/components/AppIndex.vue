@@ -1,10 +1,10 @@
 <template>
 <div>
-  <div>
+  <div style=" overflow:scroll">
     <div class="slider">
       <mt-swipe :auto="3000">
-      <mt-swipe-item v-for="item in swipeData" :key="item.pic">
-          <img :src="item.pic">
+      <mt-swipe-item v-for="(item,index) in Img" :key="index">
+          <img :src="item.src">
         </mt-swipe-item>
       </mt-swipe>
     </div>
@@ -22,6 +22,7 @@
         </td>
       </tr>
     </table>
+    <div style="background:#ebebeb;width:100%;height:16px"></div>
     <index-list></index-list>
   </div>
 
@@ -30,17 +31,13 @@
 
 <script>
 import IndexList from './indexList'
+import imgurl from '../../static/json/img.json'
 export default {
   
   name: 'AppIndex',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      swipeData:[
-        {pic: require('../img/1.jpg')},
-        {pic: require('../img/2.jpg')},
-        {pic: require('../img/3.jpg')}
-      ],
       menuData:[
         {pic: require('../img/menuicon/meishi.jpg'),text:'美食'},
         {pic: require('../img/menuicon/chaoshi.jpg'),text:'美团超市'},
@@ -54,10 +51,16 @@ export default {
     }
   },
   created(){
-   
+     
   },
   components:{
     IndexList
+  },
+  computed:{
+    Img(){
+      console.log(imgurl)
+       return imgurl.images
+    }
   }
 }
 </script>

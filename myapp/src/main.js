@@ -8,12 +8,11 @@ import MintUI from 'mint-ui'
 
 Vue.use(MintUI)
 Vue.config.productionTip = false
-axios.defaults.baseURL="localhost:8080/"
+//axios.defaults.baseURL="localhost:8080/"
 Vue.prototype.$http=axios
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers['XPS-Version'] = '1.0.0'
 
-    
 
 /* eslint-disable no-new */
 new Vue({

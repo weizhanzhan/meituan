@@ -1,0 +1,14 @@
+{
+    "star":[
+     
+        {
+            "src":"/static/img/emptystar.png","remark":"empty"
+        },
+        {
+            "src":"/static/img/halfstar.png","remark":"half"
+        },
+        {
+            "src":"/static/img/star.png","remark":"star"
+        }    
+    ]
+}
