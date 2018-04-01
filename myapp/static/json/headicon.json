@@ -1,0 +1,11 @@
+{
+    "brand2x":{
+            "src":"/static/img/headicon/brand2x.png","remark":"i1"
+        },
+    "bulletin2x":{
+            "src":"/static/img/headicon/bulletin2x.png","remark":"i2"
+        },
+    "decrease12x":{
+            "src":"/static/img/headicon/decrease1-2x.png","remark":"i3"
+    }
+}

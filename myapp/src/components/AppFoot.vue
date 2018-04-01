@@ -1,6 +1,6 @@
 <template>
 <div id="AppFoot">
-<div class="am-g">
+<!-- <div class="am-g">
  <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default "
      id="">
   <ul class="am-navbar-nav am-cf am-avg-sm-4">
@@ -11,15 +11,15 @@
       </a></router-link>
     </li>
     <li data-am-navbar-share>
-      <a href="###">
+      <a href="">
         <span class="am-icon-share-square-o"></span>
-        <span class="am-navbar-label">分享</span>
+        <span class="am-navbar-label">发现</span>
       </a>
     </li>
     <li data-am-navbar-qrcode>
-      <a href="###">
+      <a href="">
         <span class="am-icon-qrcode"></span>
-        <span class="am-navbar-label">二维码</span>
+        <span class="am-navbar-label">订单</span>
       </a>
     </li>
     <li>
@@ -36,7 +36,13 @@
     </li>
   </ul>
 </div>
-</div>
+</div> -->
+<van-tabbar v-model="active">
+  <van-tabbar-item icon="shop" to="./">首页</van-tabbar-item>
+  <van-tabbar-item icon="chat" to="./findidnex" dot>发现</van-tabbar-item>
+  <van-tabbar-item icon="records" to="./orderindex" info="5">订单</van-tabbar-item>
+  <van-tabbar-item icon="gold-coin" info="20" to="./login" >我的</van-tabbar-item>
+</van-tabbar>
 </div>
 </template>
 
@@ -45,7 +51,8 @@ export default {
   name: 'AppFoot',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      active:0
     }
   }
 }

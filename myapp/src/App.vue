@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <app-foot></app-foot>
+    
    <router-view></router-view>
-   
+     <app-foot ></app-foot>
   </div>
 </template>
 
 <script>
 import AppFoot from './components/AppFoot'
-import HelloWorld from './components/HelloWorld'
 export default {
   name: 'App',
-  components:{AppFoot,HelloWorld}
+  components:{AppFoot,}
   
 }
 </script>

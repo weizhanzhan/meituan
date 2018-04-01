@@ -1,9 +1,11 @@
 <template>
-  <div >
-      <div class="title-bar">
-          <span>附近商家</span>
-      </div>
-      <div v-for="(shopinfo,index) in shopList" :key="index" @click="$router.push('./infomation')" class="indexdiv" >
+<div>
+  <van-nav-bar   font-size:80px
+  title="商家列表"
+  left-text=""
+  left-arrow
+  @click-left="onClickLeft"/>
+     <div v-for="(shopinfo,index) in RresLst" :key="index" class="indexdiv" >
           <span class="left" >
                <div class="imgall">
                     <div class="imgpic"><img :src="shopinfo.pic_url" style="width:70px;" alt="" id=""></div>
@@ -33,37 +35,55 @@
           
           <hr>
       </div>
-  </div>
+</div> 
 </template>
 <script>
-import indexList from '../../static/index-list.json'
-import star from '../../static/json/star.json'	
+import restaurant from '../../../static/restaurant-list.json'
+import star from '../../../static/json/star.json'	
 export default {
-    name:'indexList',
     data(){
         return{
-           shopList:[],
+            resList:[]
         }
     },
     created(){
-        this.shopList=indexList.data.poilist
+       this.resList=restaurant.data.poilist
+       console.log(restaurant.data.poilist)
     },
-    methods:{
-        onClickLeft(){
-            this.$router.back(-1)
-        }
+   methods: {
+    onClickLeft() {
+      this.$router.back(-1)
     },
-    computed:{
+    onClickRight() {
+      Toast('按钮');
+    }
+  },
+  computed:{
         starurl(){
             return star
+        },
+        RresLst(){
+            return this.resList.sort(function() {
+                return .5 - Math.random();
+            });
         }
     }
-  
 }
 </script>
-<style>
 
-.imgall{
+  <style>
+ .van-nav-bar__title{
+    font-size: 17px;
+    color: #333;
+    font-weight:bold;
+    border-bottom: 1px solid rgba(7,17,27,.1);
+ }
+ .van-nav-bar .van-icon {
+    color: #000;
+    vertical-align: middle;
+    font-weight:bold
+}
+imgall{
         position: relative;
         text-align: center;
         width: 90px;
@@ -149,4 +169,5 @@ export default {
         margin-right: 10px;
     position: relative;
 }
-</style>
+  </style>
+

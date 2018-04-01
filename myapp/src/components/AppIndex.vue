@@ -11,13 +11,13 @@
     <table width="100%" style="margin-top:2%">
       <tr>
         <td  v-for="(img,index) in menuData.slice(0,4)"  height="100px"  align="center"  :key="index">
-          <div><img style="width:50px" :src="img.pic"/></div>
+          <div><img style="width:50px" :src="img.pic" @click="$router.push('./slist')"/></div>
           <div>{{img.text}}</div>
         </td>
       </tr>
       <tr>
         <td  v-for="(img,index) in menuData.slice(4,8)"  height="20%"   align="center" :key="index">
-          <div><img style="width:50px" :src="img.pic"/></div>
+          <div><img style="width:50px" :src="img.pic" @click="$router.push('./slist')"/></div>
           <div>{{img.text}}</div>
         </td>
       </tr>
@@ -25,19 +25,20 @@
     <div style="background:#ebebeb;width:100%;height:16px"></div>
     <index-list></index-list>
   </div>
-
 </div>
 </template>
 
 <script>
 import IndexList from './indexList'
 import imgurl from '../../static/json/img.json'
+import AppFoot from '../components/AppFoot'
 export default {
   
   name: 'AppIndex',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
+      active:0,
       menuData:[
         {pic: require('../img/menuicon/meishi.jpg'),text:'美食'},
         {pic: require('../img/menuicon/chaoshi.jpg'),text:'美团超市'},
@@ -54,7 +55,7 @@ export default {
      
   },
   components:{
-    IndexList
+    IndexList,AppFoot
   },
   computed:{
     Img(){

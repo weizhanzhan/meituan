@@ -39,10 +39,19 @@
     <p>© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
   </div>
 </div> 
+</div>
 </template>
 <script>
+import AppFoot from '../../components/AppFoot'
 export default {
-  
+  data(){
+    return{
+      active:3
+    }
+  },
+     components:{
+       AppFoot
+     }
 }
 </script>
 
