@@ -40,9 +40,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .header{
-    background: #000;
+    background: rosybrown;
     color: #fff;
 }
 .content{
@@ -58,6 +58,7 @@ export default {
      display:inline-block;
      font-size: 17px;
      margin-left: 16px;
+     text-align: left;
 }
 .name{
     font-size: 16px;
@@ -83,7 +84,7 @@ export default {
     margin-left:30px;
     font-size: 10px;
     display:block;                     /*内联对象需加*/
-    width:35em;
+    /* width:35em; */
     white-space:nowrap;          /* 不换行 */
     overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
     text-overflow:ellipsis;   /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/

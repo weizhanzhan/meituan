@@ -30,8 +30,6 @@
                          {{count.info}}
                     </div>
           </span>
-          
-          <hr>
       </div>
   </div>
 </template>
@@ -89,18 +87,18 @@ export default {
   
 }
 .indexdiv{
-    height:150px;
-    height:140px;border-bottom:1px solid #CCCCCC
+    height:160px;border-bottom:1px solid rgb(235, 235, 235)
 }
 .left{
     width:20%;
     float:left;height:140px;
-    margin-top:5px
+    margin-top:20px
 }
 .right{
     width:75%;
     float:right;
     height:140px;
+    margin-top:15px
 }
 .title-bar{
     height:40px;

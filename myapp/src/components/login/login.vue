@@ -1,5 +1,5 @@
 <template><div>
- <div class="header">
+ <div class="loginheader">
   <div class="am-g">
     <h1>Web ide</h1>
     <p>Integrated Development Environment<br/>代码编辑，代码生成，界面设计，调试，编译</p>
@@ -55,16 +55,16 @@ export default {
 }
 </script>
 
-  <style>
-    .header {
+  <style scoped>
+    .loginheader {
       text-align: center;
     }
-    .header h1 {
+    .loginheader h1 {
       font-size: 200%;
       color: #333;
       margin-top: 30px;
     }
-    .header p {
+    .loginheader p {
       font-size: 14px;
     }
   </style>

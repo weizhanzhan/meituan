@@ -3,7 +3,7 @@
       findIndex
   </diV>
 </template>
-<script>
+<script scoped>
 import AppFoot from '../../components/AppFoot'
 export default {
     name:'findIndex',
