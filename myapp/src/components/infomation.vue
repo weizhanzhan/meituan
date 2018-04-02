@@ -1,7 +1,7 @@
 <template>
 <div>
   <goodshead :seller="seller"></goodshead>
-  <goods></goods>
+  <goods :goods="goods"></goods>
   
 </div> 
 </template>
@@ -16,7 +16,7 @@ export default {
     }
   },
   created(){
-    console.log(Seller.seller)
+    console.log(Seller)
   },
   components:{
     Goodshead,Goods
@@ -24,6 +24,9 @@ export default {
   computed:{
     seller(){
       return Seller.seller
+    },
+    goods(){
+      return Seller.goods
     }
   }
   
