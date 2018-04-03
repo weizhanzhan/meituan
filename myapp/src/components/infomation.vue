@@ -15,6 +15,13 @@ export default {
       allData:[]
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm=>vm.$store.commit("setTab",false))
+  },
+  beforeRouteLeave (to, from, next) {
+    this.$store.commit("setTab",true)
+    next()
+  },
   created(){
     console.log(Seller)
   },

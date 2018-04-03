@@ -3,7 +3,7 @@
     <div class="goodsmenu" style="bottom:100px">
       <ul>
         <li class="menuitem" v-for="(goodname,index) in goods" :key="index">
-          <span class="text">
+          <span class="ftext">
             {{goodname.name}}
           </span>
           </li>
@@ -28,12 +28,17 @@
                     <div class="fprice">
                       <span>￥{{food.price}}</span>
                     </div>
-                </div>
-                
+                </div>              
             </li>
           </ul>
         </li>
       </ul>
+    </div>  
+    <div class="shopchart">
+       <div class="chartleft"> 我是购物车</div>
+       <div class="chartright">
+          <div class="pay">10起送</div>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +54,8 @@ export default {
        },
        computed:{
          goods(){
+            console.log(this.$store.state.tabshow,1)
+           console.log(this.$store.state.tabshow,2)
            return Seller.goods
          }
        }
@@ -61,7 +68,7 @@ export default {
   display: flex;
   position: absolute;
   width: 100%;
-  height: 480px;
+  height: 500px;
   overflow: hidden;
   /* overflow:scroll */
   
@@ -81,7 +88,7 @@ export default {
   line-height: 14px;
   
 }
-.text{
+.ftext{
   display:table-cell;
   width: 56px;
   vertical-align: middle;
@@ -101,6 +108,8 @@ export default {
 .food_item{
   display: flex;
   margin: 18px;
+  border-bottom: 1px solid rgb(235, 235, 235);
+  height: 90px;
 }
 .ficon{
    flex:0 0 57px;
@@ -139,5 +148,34 @@ export default {
   line-height: 24px;
   font-size: 14px;
   color: rgb(240,20,20)
+}
+.shopchart{
+    display: flex;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    height:50px;
+    /* background: #141d27; */
+    background-color: #141d27;;
+    bottom: 0;
+    font-size: 14px;
+    color: hsla(0,0%,100%,.4);
+
+}
+.chartleft{
+  flex: 1
+}
+.chartright{
+    flex: 0 0 105px;
+    width: 105px;
+    text-align: center;
+    background:#2b333b
+}
+.pay{
+    height: 48px;
+    line-height: 48px;
+    font-size: 12px;
+    font-weight: 700;
 }
 </style>

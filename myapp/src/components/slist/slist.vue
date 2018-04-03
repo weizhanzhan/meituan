@@ -6,13 +6,13 @@
   left-arrow
   @click-left="onClickLeft"/>
      <div v-for="(shopinfo,index) in RresLst" :key="index" class="indexdiv" >
-          <span class="left" >
+          <span class="ileft" >
                <div class="imgall">
                     <div class="imgpic"><img :src="shopinfo.pic_url" style="width:70px;" alt="" id=""></div>
                     <div class="imgicon"><img :src="shopinfo.poi_type_icon" style="width:30px;float:left" alt="" id=""></div>
                   </div>
           </span>
-          <span class="right" >
+          <span class="iright" >
                <div><label>{{shopinfo.name}}</label></div>
                        <div class="middleinfo">
                          <div class="middleimg">
@@ -32,8 +32,6 @@
                          {{count.info}}
                     </div>
           </span>
-          
-          <hr>
       </div>
 </div> 
 </template>
@@ -109,18 +107,17 @@ imgall{
   
 }
 .indexdiv{
-    height:150px;
-    height:140px;border-bottom:1px solid #CCCCCC
+    height:160px;
+    border-bottom:1px solid #CCCCCC
 }
-.left{
+.ileft{
     width:20%;
-    float:left;height:140px;
+    float:left;
     margin-top:5px
 }
-.right{
+.iright{
     width:75%;
     float:right;
-    height:140px;
 }
 .title-bar{
     height:40px;

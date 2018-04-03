@@ -22,6 +22,10 @@
           </span>
           <span class="text">{{seller.bulletin}}</span>
       </div>
+      <div class="back" @click="$router.push('./')">
+          <!-- <img width="35"  height="34" :src="back.pic" /> -->
+             <img :src="backsvg.pic"  width="20" class="bimg"  height="20" />
+      </div>
   </div>
 </template>
 
@@ -29,6 +33,12 @@
 import headicon from '../../../static/json/headicon'
 export default {
    props:["seller"],
+   data(){
+       return{
+           back:{pic: require('./img/back.png'),text:'返回'},
+           backsvg:{pic: require('./img/backsvg.svg'),text:'返回svg'},
+       }
+   },
    created(){
        console.log(this.seller)
    },
@@ -41,6 +51,7 @@ export default {
 </script>
 
 <style scoped>
+
 .header{
     background: rosybrown;
     color: #fff;
@@ -88,5 +99,19 @@ export default {
     white-space:nowrap;          /* 不换行 */
     overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
     text-overflow:ellipsis;   /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+.back{
+    position: fixed;
+           top: 25px;
+    right: 19px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,.2);
+    z-index: 1;
+}
+.bimg{
+    margin-left: 5px;
+    margin-top: 3px
 }
 </style>

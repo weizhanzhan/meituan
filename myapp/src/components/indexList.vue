@@ -4,13 +4,13 @@
           <span>附近商家</span>
       </div>
       <div v-for="(shopinfo,index) in shopList" :key="index" @click="$router.push('./infomation')" class="indexdiv" >
-          <span class="left" >
+          <span class="sleft" >
                <div class="imgall">
                     <div class="imgpic"><img :src="shopinfo.pic_url" style="width:70px;" alt="" id=""></div>
                     <div class="imgicon"><img :src="shopinfo.poi_type_icon" style="width:30px;float:left" alt="" id=""></div>
                   </div>
           </span>
-          <span class="right" >
+          <span class="sright" >
                <div><label>{{shopinfo.name}}</label></div>
                        <div class="middleinfo">
                          <div class="middleimg">
@@ -87,17 +87,17 @@ export default {
   
 }
 .indexdiv{
-    height:160px;border-bottom:1px solid rgb(235, 235, 235)
+    height:160px;
+    border-bottom:1px solid rgb(235, 235, 235)
 }
-.left{
+.sleft{
     width:20%;
-    float:left;height:140px;
+    float:left;
     margin-top:20px
 }
-.right{
+.sright{
     width:75%;
     float:right;
-    height:140px;
     margin-top:15px
 }
 .title-bar{

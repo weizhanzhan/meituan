@@ -8,6 +8,7 @@ import MintUI from 'mint-ui'
 import { NavBar } from 'vant';
 import { Tabbar, TabbarItem } from 'vant';
 import { Tab, Tabs } from 'vant';
+import {store} from './store/store'
 
 Vue.use(Tab).use(Tabs);
 Vue.use(Tabbar).use(TabbarItem);
@@ -24,6 +25,7 @@ axios.defaults.headers['XPS-Version'] = '1.0.0'
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
