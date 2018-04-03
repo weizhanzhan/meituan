@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <div class="goodsmenu" style="bottom:100px">
+    <div class="goodsmenu" ref="goods" style="bottom:100px">
       <ul>
         <li class="menuitem" v-for="(goodname,index) in goods" :key="index">
           <span class="ftext">
@@ -9,7 +9,7 @@
           </li>
       </ul>
     </div>
-    <div class="goodsinfo">
+    <div class="goodsinfo" ref="info">
       <ul>
         <li class="foodlist" v-for="(item,index) in goods" :key="index">
           <div class="ftitle">{{item.name}}</div>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import Bscroll from 'better-scroll'
 import Seller from '../../../static/seller.json'
 export default {
        data(){
@@ -51,12 +52,23 @@ export default {
        },
        created(){
          console.log(Seller.goods)
+         this.$nextTick(()=>{
+            this.init();
+         })
+         
        },
        computed:{
          goods(){
             console.log(this.$store.state.tabshow,1)
            console.log(this.$store.state.tabshow,2)
            return Seller.goods
+         }
+       },
+       methods:{
+         init(){
+           console.log(this.$refs.goods)
+           this.menuwrapper=new Bscroll(this.$refs.goods,{})
+           this.infpwrapper=new Bscroll(this.$refs.info,{})
          }
        }
 }
