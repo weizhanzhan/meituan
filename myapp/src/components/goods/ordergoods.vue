@@ -68,7 +68,7 @@ export default {
          init(){
            console.log(this.$refs.goods)
            this.menuwrapper=new Bscroll(this.$refs.goods,{})
-           this.infpwrapper=new Bscroll(this.$refs.info,{})
+           this.infowrapper=new Bscroll(this.$refs.info,{})
          }
        }
 }
@@ -80,7 +80,7 @@ export default {
   display: flex;
   position: absolute;
   width: 100%;
-  height: 500px;
+  height: 300px;
   overflow: hidden;
   /* overflow:scroll */
   

@@ -1,11 +1,14 @@
 <template>
 <div>
+ <div style="width:100%;height:30px;position:fixed;top:0;left:0;z-index:1">
   <van-nav-bar   font-size:80px
   title="商家列表"
   left-text=""
   left-arrow
   @click-left="onClickLeft"/>
-     <div v-for="(shopinfo,index) in RresLst" :key="index" class="indexdiv" >
+ </div>
+ <div style="margin-top:68px">
+   <div v-for="(shopinfo,index) in RresLst" :key="index" class="indexdiv" >
           <span class="ileft" >
                <div class="imgall">
                     <div class="imgpic"><img :src="shopinfo.pic_url" style="width:70px;" alt="" id=""></div>
@@ -33,6 +36,7 @@
                     </div>
           </span>
       </div>
+ </div>
 </div> 
 </template>
 <script>
