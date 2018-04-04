@@ -50,7 +50,6 @@ export default {
     },
     created(){
        this.resList=restaurant.data.poilist
-       console.log(restaurant.data.poilist)
     },
    methods: {
     onClickLeft() {
@@ -117,11 +116,12 @@ imgall{
 .ileft{
     width:20%;
     float:left;
-    margin-top:5px
+    margin-top:15px
 }
 .iright{
     width:75%;
     float:right;
+    margin-top:15px
 }
 .title-bar{
     height:40px;

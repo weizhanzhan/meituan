@@ -59,7 +59,6 @@ export default {
   },
   computed:{
     Img(){
-      console.log(imgurl)
        return imgurl.images
     }
   }

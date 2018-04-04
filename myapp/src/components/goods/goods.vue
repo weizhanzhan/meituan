@@ -21,7 +21,6 @@ export default {
     },
     methods:{
         onClick(index,title) {
-           console.log(index,title)
            this.$router.push({name:title})
         }
     }

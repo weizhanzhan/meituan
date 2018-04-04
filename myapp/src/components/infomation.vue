@@ -23,7 +23,6 @@ export default {
     next()
   },
   created(){
-    console.log(Seller)
   },
   components:{
     Goodshead,Goods

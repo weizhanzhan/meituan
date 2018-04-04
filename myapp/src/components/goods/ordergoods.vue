@@ -2,16 +2,18 @@
   <div class="goods">
     <div class="goodsmenu" ref="goods" style="bottom:100px">
       <ul>
-        <li class="menuitem" v-for="(goodname,index) in goods" :key="index">
+        <li class="menuitem menuhook" v-for="(goodname,index) in goods" :key="index"
+         :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)"
+        >
           <span class="ftext">
             {{goodname.name}}
           </span>
-          </li>
+        </li>
       </ul>
     </div>
     <div class="goodsinfo" ref="info">
       <ul>
-        <li class="foodlist" v-for="(item,index) in goods" :key="index">
+        <li class="foodlist listhook" v-for="(item,index) in goods" :key="index">
           <div class="ftitle">{{item.name}}</div>
           <ul>
             <li class="food_item" v-for="(food,index) in item.foods" :key="index">
@@ -48,27 +50,71 @@ import Bscroll from 'better-scroll'
 import Seller from '../../../static/seller.json'
 export default {
        data(){
-         return{}
+         return{
+           listHeight:[],//包括每一个区间的长度
+           scrollY:0
+         }
        },
        created(){
-         console.log(Seller.goods)
          this.$nextTick(()=>{
-            this.init();
+            this.init()//创建better-scrool
+            this.calculateHeight()//获取所有dom高度
          })
          
        },
        computed:{
          goods(){
-            console.log(this.$store.state.tabshow,1)
-           console.log(this.$store.state.tabshow,2)
            return Seller.goods
+         },
+         currentIndex(){//求现在位置的索引
+           for(let i=0;i<this.listHeight.length;i++){
+             let height1=this.listHeight[i]//一个区间的开始
+             let height2=this.listHeight[i+1]//一个区间的结束
+             if(!height2||(this.scrollY>=height1&&this.scrollY<height2))//如果当前所在高度（scrollY），在区间的开始与结束之间，那么他就在这个索引的区间里面
+             {
+               return i
+             }
+           }
+           return 0;//如果不在任何区间的话 返回0
          }
        },
        methods:{
+         selectMenu(index,event){
+           if(event._constructed)//scroll中会把原生click，prevent掉
+           {
+             let foodList =this.$refs.info.getElementsByClassName('listhook')//获取全部的dom
+             let el=foodList[index]//定义当前的dom
+             this.infowrapper.scrollToElement(el,300)//scroll 跳到当前区间
+           }
+           else{//手机端
+             let foodList =this.$refs.info.getElementsByClassName('listhook')
+             let el=foodList[index]
+             this.infowrapper.scrollToElement(el,300)
+           }
+           
+
+         },
          init(){
-           console.log(this.$refs.goods)
-           this.menuwrapper=new Bscroll(this.$refs.goods,{})
-           this.infowrapper=new Bscroll(this.$refs.info,{})
+           this.menuwrapper=new Bscroll(this.$refs.goods,{//定义菜单scroll
+             click:true//scroll中会把原生click，prevent掉，我们要打开
+           })
+           this.infowrapper=new Bscroll(this.$refs.info,{//定义的食品scroll
+             probeType:3//滚动的时候事实告诉我们的位置
+           })  
+           this.infowrapper.on('scroll',pos=>{//滚动的时候可以获取滚动的scrolly  就是当前在那个地方的y 高度
+             this.scrollY=Math.abs(Math.round(pos.y))
+           })
+         },
+         calculateHeight(){
+            let foodList =this.$refs.info.getElementsByClassName('listhook')//通过父元素获取所有的listhook子元素的class的li，也就是每一组数据
+            let height=0;//定义当前位置为0
+            this.listHeight.push(height)//先把第一个的位置放进去
+            for(let i=0;i<foodList.length;i++)//获取每一个区间的高度
+            {
+              let item=foodList[i]
+              height+=item.clientHeight//第i个区间的长度
+              this.listHeight.push(height)//获取每一个区间的高度并加入到总的高度里面
+            }
          }
        }
 }
@@ -80,7 +126,7 @@ export default {
   display: flex;
   position: absolute;
   width: 100%;
-  height: 300px;
+  height: 500px;
   overflow: hidden;
   /* overflow:scroll */
   
@@ -96,8 +142,9 @@ export default {
 .menuitem{
   display: table;
   height: 54px;
-  width: 56px;
+  width: 100%;
   line-height: 14px;
+  border-bottom: 1px solid rgb(235, 235, 235);
   
 }
 .ftext{
@@ -189,5 +236,11 @@ export default {
     line-height: 48px;
     font-size: 12px;
     font-weight: 700;
+}
+.current{
+  position: relative;
+  z-index: 10;
+  background: #fff;
+  font-weight: 700
 }
 </style>
