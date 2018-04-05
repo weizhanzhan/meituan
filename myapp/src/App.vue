@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     
-   <router-view></router-view>
+     <router-view></router-view>
      <app-foot ></app-foot>
   </div>
 </template>
@@ -10,13 +10,16 @@
 import AppFoot from './components/AppFoot'
 export default {
   name: 'App',
-  components:{AppFoot,}
+  components:{AppFoot,},
+  created(){
+    this.$router.push('/')
+  }
   
 }
 </script>
 
 <style>
 body{
-  overflow:scroll
+  overflow:scroll;
 }
 </style>

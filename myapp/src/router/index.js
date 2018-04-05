@@ -22,7 +22,7 @@ export default new Router({
     { path: '/slist',name: 'slist',component: Slist},
     { path: '/infomation',name: 'info',component: Infomation,children:[
       {path:'/evaluate',name:'评价',component:Evaluate},
-      {path:'/ordergoods',name:'点菜',component:OrderGoods},
+       {path:'/ordergoods',name:'点菜',component:OrderGoods},
       {path:'/business',name:'商家',component:Business},
     ]},
   ],

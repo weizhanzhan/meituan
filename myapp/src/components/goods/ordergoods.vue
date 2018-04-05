@@ -1,7 +1,8 @@
 <template>
+<div>
   <div class="goods">
-    <div class="goodsmenu" ref="goods" style="bottom:100px">
-      <ul>
+     <div class="goodsmenu" ref="goods">
+       <ul>
         <li class="menuitem menuhook" v-for="(goodname,index) in goods" :key="index"
          :class="{'current':currentIndex===index}" @click="selectMenu(index,$event)"
         >
@@ -9,10 +10,10 @@
             {{goodname.name}}
           </span>
         </li>
-      </ul>
+      </ul> 
     </div>
     <div class="goodsinfo" ref="info">
-      <ul>
+    <ul>
         <li class="foodlist listhook" v-for="(item,index) in goods" :key="index">
           <div class="ftitle">{{item.name}}</div>
           <ul>
@@ -36,13 +37,14 @@
         </li>
       </ul>
     </div>  
-    <div class="shopchart">
+  </div>
+   <div class="shopchart">
        <div class="chartleft"> 我是购物车</div>
        <div class="chartright">
           <div class="pay">10起送</div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -122,22 +124,22 @@ export default {
 
 <style scoped>
 .goods{
-  
   display: flex;
-  position: absolute;
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
-  /* overflow:scroll */
+  position: fixed;
+  top:177px;
+  bottom: 46px;
+  width: 100%;  
+  /* height:65vh;100vh铺满屏幕 */ 
+  overflow: hidden; 
   
 }
-.goods .goodsmenu{
+.goodsmenu{
    flex: 0 20 80px;
    width: 80px;
-   background:#f3f5f7;
+   /* background:#f3f5f7; */
 }
-.goods .goodsinfo{
-   flex: 1
+.goodsinfo{
+   flex: 1;
 }
 .menuitem{
   display: table;
@@ -214,7 +216,7 @@ export default {
     bottom: 0;
     position: fixed;
     width: 100%;
-    height:50px;
+    height:46px;
     /* background: #141d27; */
     background-color: #141d27;;
     bottom: 0;

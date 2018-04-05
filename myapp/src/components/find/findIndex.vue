@@ -1,8 +1,10 @@
 <template>
-  <diV>
-      123{{content}}
+  <div style="height:1000%">
+      <div class="findindex">
+           123{{content}}
       <button @click="clc">click</button>
-  </diV>
+      </div>
+  </div>
 </template>
 <script scoped>
 import AppFoot from '../../components/AppFoot'
@@ -30,5 +32,11 @@ export default {
 }
 </script>
 <style>
-
+.findindex{
+   border:1px solid red;
+  display:flex;
+  position:absolute;
+  top:10px;
+  padding-bottom:150% 
+}
 </style>
