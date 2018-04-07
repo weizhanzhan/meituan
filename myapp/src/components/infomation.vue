@@ -29,6 +29,7 @@ export default {
     next()
   },
   created(){
+     this.$router.push({name:'点菜'})
   },
   components:{
     Goodshead,

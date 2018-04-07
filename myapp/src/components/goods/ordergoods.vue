@@ -31,6 +31,9 @@
                     <div class="fprice">
                       <span>￥{{food.price}}</span>
                     </div>
+                    <div class="fcontrol">
+                       <control :food="food"></control>
+                    </div>
                 </div>              
             </li>
           </ul>
@@ -38,23 +41,22 @@
       </ul>
     </div>  
   </div>
-   <div class="shopchart">
-       <div class="chartleft"> 我是购物车</div>
-       <div class="chartright">
-          <div class="pay">10起送</div>
-      </div>
-    </div>
+   <shopchart :ishop="ishop"></shopchart>
 </div>
 </template>
 
 <script>
+import Shopchart from './shopcart/shopcart'
 import Bscroll from 'better-scroll'
 import Seller from '../../../static/seller.json'
+import Control from './control/control'
 export default {
        data(){
          return{
            listHeight:[],//包括每一个区间的长度
-           scrollY:0
+           scrollY:0,
+           ishop:false,
+           countTotal:0
          }
        },
        created(){
@@ -80,7 +82,10 @@ export default {
            return 0;//如果不在任何区间的话 返回0
          }
        },
+       watch:{
+       },
        methods:{
+        
          selectMenu(index,event){
            if(event._constructed)//scroll中会把原生click，prevent掉
            {
@@ -101,7 +106,8 @@ export default {
              click:true//scroll中会把原生click，prevent掉，我们要打开
            })
            this.infowrapper=new Bscroll(this.$refs.info,{//定义的食品scroll
-             probeType:3//滚动的时候事实告诉我们的位置
+             probeType:3,//滚动的时候事实告诉我们的位置
+             click:true
            })  
            this.infowrapper.on('scroll',pos=>{//滚动的时候可以获取滚动的scrolly  就是当前在那个地方的y 高度
              this.scrollY=Math.abs(Math.round(pos.y))
@@ -117,7 +123,10 @@ export default {
               height+=item.clientHeight//第i个区间的长度
               this.listHeight.push(height)//获取每一个区间的高度并加入到总的高度里面
             }
-         }
+         },
+       },
+       components:{
+         Shopchart,Control
        }
 }
 </script>
@@ -170,7 +179,9 @@ export default {
   display: flex;
   margin: 18px;
   border-bottom: 1px solid rgb(235, 235, 235);
-  height: 90px;
+  /* height: 90px; */
+  padding-bottom: 18px;
+  position: relative
 }
 .ficon{
    flex:0 0 57px;
@@ -210,34 +221,10 @@ export default {
   font-size: 14px;
   color: rgb(240,20,20)
 }
-.shopchart{
-    display: flex;
-    left: 0;
-    bottom: 0;
-    position: fixed;
-    width: 100%;
-    height:46px;
-    /* background: #141d27; */
-    background-color: #141d27;;
-    bottom: 0;
-    font-size: 14px;
-    color: hsla(0,0%,100%,.4);
-
-}
-.chartleft{
-  flex: 1
-}
-.chartright{
-    flex: 0 0 105px;
-    width: 105px;
-    text-align: center;
-    background:#2b333b
-}
-.pay{
-    height: 48px;
-    line-height: 48px;
-    font-size: 12px;
-    font-weight: 700;
+.fcontrol{
+  position:absolute;
+  right: 0;
+  bottom: 18px
 }
 .current{
   position: relative;
@@ -245,4 +232,5 @@ export default {
   background: #fff;
   font-weight: 700
 }
+
 </style>
