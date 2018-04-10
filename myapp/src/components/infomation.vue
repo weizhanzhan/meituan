@@ -2,11 +2,14 @@
 <div>
   <goodshead :seller="seller"></goodshead>
   <!-- <goods :goods="goods"></goods> -->
-   <van-tabs :active="active" @click="onClick" swipeable>
+  <div class="tap">
+   <!-- <van-tabs :active="active" @click="onClick" swipeable >
         <van-tab v-for="index in menu" :title="index"  :key="index">        
        </van-tab>
-    </van-tabs>
-    <router-view></router-view>
+    </van-tabs> -->
+      <div class="tabTitle" :class="{tabitem:index==selectTab}" v-for="index in menu"  @click="onClick(index)" :key="index">{{index}}</div>
+    </div>
+    <router-view :deliveryPrice="seller.deliveryPrice"></router-view>
   
 </div> 
 </template>
@@ -18,7 +21,8 @@ export default {
     return{
       allData:[],
       menu:['点菜','评价','商家'],
-       active: 0
+      active: 0,
+      selectTab:''
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -30,6 +34,7 @@ export default {
   },
   created(){
      this.$router.push({name:'点菜'})
+     console.log(this.seller)
   },
   components:{
     Goodshead,
@@ -44,7 +49,9 @@ export default {
   },
   methods:{
     onClick(index,title) {
-           this.$router.push({name:title})
+
+      this.selectTab=index
+       this.$router.push({name:index})
      }
   }
   
@@ -52,6 +59,20 @@ export default {
 </script>
 
   <style>
- 
+  .tap{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    position: relative;
+  }
+ .tabTitle{
+   display: inline;
+   flex:1
+ }
+ .tabitem{
+   color: red
+ }
   </style>
 

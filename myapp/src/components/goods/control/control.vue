@@ -1,14 +1,14 @@
 <template>
   <div>
     <!-- <div class="reduse" > -->
-     <transition name="fade">
-       <img  width="24" height="24" v-if="countTotal>0" :src="red.pic" @click="goodRed()"/> 
+     <transition name="fade" >
+       <img  width="24"  height="24" v-if="countTotal>0" :src="red.pic" @click="goodRed()"/> 
     </transition>
 
     <div class="ortotal">
         <span v-if="countTotal>0">{{countTotal}}</span>
     </div>
-    <div class="fadd">
+    <div class="fadd" ref="add">
         <img width="24" height="24" :src="add.pic" @click="goodAdd()"/>
     </div>
   </div>
@@ -32,19 +32,23 @@ export default {
       },
       methods:{
           goodAdd(){
-              console.log(this.food)
+           console.log(this.food)
+           this.$store.commit("setAdddom",'') 
+           this.$store.commit("setAdddom",this.$refs.add)
+           this.$store.commit("setOrder",this.food)
           if(event._constructed)//scroll中会把原生click，prevent掉
            {
              this.ishop=true
              this.countTotal++
-             console.log( this.countTotal)
            }
            else{//手机端
             this.ishop=true
             this.countTotal++
            } 
+            console.log(this.$store.state.adddom)
          },
          goodRed(){
+            this.$store.commit("deleteOrder",this.food)
            if(event._constructed)//scroll中会把原生click，prevent掉
            {         
              this.countTotal--
@@ -53,7 +57,8 @@ export default {
             this.countTotal--
            } 
          },
-      }
+      },
+     
 }
 </script>
 

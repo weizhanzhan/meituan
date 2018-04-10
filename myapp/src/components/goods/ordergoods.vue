@@ -41,7 +41,8 @@
       </ul>
     </div>  
   </div>
-   <shopchart :ishop="ishop"></shopchart>
+  <popup></popup>
+   <shopchart :ishop="ishop" :deliveryPrice="deliveryPrice"></shopchart>
 </div>
 </template>
 
@@ -50,7 +51,11 @@ import Shopchart from './shopcart/shopcart'
 import Bscroll from 'better-scroll'
 import Seller from '../../../static/seller.json'
 import Control from './control/control'
+import Popup from './popup/popup'
 export default {
+  props:[
+        'deliveryPrice'
+    ],
        data(){
          return{
            listHeight:[],//包括每一个区间的长度
@@ -98,7 +103,7 @@ export default {
              let el=foodList[index]
              this.infowrapper.scrollToElement(el,300)
            }
-           
+          
 
          },
          init(){
@@ -126,7 +131,7 @@ export default {
          },
        },
        components:{
-         Shopchart,Control
+         Shopchart,Control,Popup
        }
 }
 </script>
