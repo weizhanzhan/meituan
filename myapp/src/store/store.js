@@ -22,7 +22,31 @@ export const store=new Vuex.Store({
             state.adddom=data
         },
         setOrder(state,data){
-            state.orderFoods.push(data)
+            // var i=state.orderFoods.indexOf(data)
+            // if(i!=-1){
+            //     state.orderFoods[i]=[]
+            //     state.orderFoods[i]=data
+            // }
+            // else{
+            //     state.orderFoods.push(data)
+            // }  
+            console.log(data,'vuex')
+            if(state.orderFoods.length==0){
+                state.orderFoods.push(data)
+            }
+            else{
+            for(var j=0;j<state.orderFoods.length;j++){
+                console.log('for')
+                if(data.name==state.orderFoods[j].name){
+                     console.log('in')
+                     state.orderFoods[j]=data
+                }
+                else{
+                    console.log('push')
+                    state.orderFoods.push(data)
+                }
+            } 
+        }      
         },
         deleteOrder(state,data){
             let foods=state.orderFoods

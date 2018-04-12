@@ -2,11 +2,11 @@
   <div>
     <!-- <div class="reduse" > -->
      <transition name="fade" >
-       <img  width="24"  height="24" v-if="countTotal>0" :src="red.pic" @click="goodRed()"/> 
+       <img  width="24"  height="24" v-show="thisfood.count>0" :src="red.pic" @click="goodRed()"/> 
     </transition>
 
     <div class="ortotal">
-        <span v-if="countTotal>0">{{countTotal}}</span>
+        <span v-show="thisfood.count>0">{{thisfood.count}}</span>
     </div>
     <div class="fadd" ref="add">
         <img width="24" height="24" :src="add.pic" @click="goodAdd()"/>
@@ -14,47 +14,64 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
 export default {
+
     props:{
         food:{
             type:Object
         }
     },
-    created(){
-
-    },
-      data(){
+     data(){
           return{
              add:{pic: require('../shopcart/img/add.png'),text:'add'},
              red:{pic: require('../shopcart/img/red.png'),text:'red'},
-             countTotal:0
+             thisfood:{
+               count:0
+             },
+             num:0
           }
+      },
+    created(){
+        
+        for(var key in this.food)
+        {
+          this.thisfood[key]=this.food[key]
+        }
+    },
+    mounted(){
+      
+    },
+     
+      'watch':{
+        'this.thisfood'(val){
+          console.log(val,'11')
+        }
       },
       methods:{
           goodAdd(){
-           console.log(this.food)
-           this.$store.commit("setAdddom",'') 
-           this.$store.commit("setAdddom",this.$refs.add)
-           this.$store.commit("setOrder",this.food)
+           
+           console.log(this.thisfood)
+           this.$store.commit("setOrder",this.thisfood)
           if(event._constructed)//scroll中会把原生click，prevent掉
            {
-             this.ishop=true
-             this.countTotal++
+             
+             this.num++;
+             this.thisfood.count++
            }
            else{//手机端
-            this.ishop=true
-            this.countTotal++
+             this.num++;
+             this.thisfood.count++
            } 
-            console.log(this.$store.state.adddom)
          },
          goodRed(){
-            this.$store.commit("deleteOrder",this.food)
+         //   this.$store.commit("deleteOrder",this.food)
            if(event._constructed)//scroll中会把原生click，prevent掉
-           {         
-             this.countTotal--
+           {   
+             this.thisfood.count--      
            }
            else{//手机端
-            this.countTotal--
+             this.thisfood.count--
            } 
          },
       },

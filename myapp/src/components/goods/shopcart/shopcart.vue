@@ -61,8 +61,11 @@ export default {
     },
     methods:{
         pupopShow(){
+            console.log('sss')
             this.popshow=!this.popshow
+          //  this.popshow=true
             this.$store.commit('setPopupShow',this.popshow)
+            
         }
     },
     computed:{
