@@ -65,6 +65,8 @@ export default {
          }
        },
        created(){
+        
+         this.$store.commit('getFoods',Seller.goods)
          this.$nextTick(()=>{
             this.init()//创建better-scrool
             this.calculateHeight()//获取所有dom高度
@@ -73,7 +75,7 @@ export default {
        },
        computed:{
          goods(){
-           return Seller.goods
+           return this.$store.state.Allfood
          },
          currentIndex(){//求现在位置的索引
            for(let i=0;i<this.listHeight.length;i++){
@@ -85,6 +87,14 @@ export default {
              }
            }
            return 0;//如果不在任何区间的话 返回0
+         },
+         ordered(){
+           var list=[];
+           this.goods.forEach(good => {
+             if(good.count>0){
+               console.log(good,'good')
+             }
+           });
          }
        },
        watch:{

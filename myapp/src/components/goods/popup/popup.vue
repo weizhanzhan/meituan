@@ -7,15 +7,14 @@
      </div>
       <div class="popcontent" ref="popfood">
          <ul>
-            <li  class="popli" v-for="(food,index) in popShopList" :key="index">
+            <li  class="popli" v-for="(food,index) in popShopList"  :key="index">
              <div class="popfoodname"> {{food.name}}</div>
-            <div class="popcontrol"><control :food="food"></control></div> 
+             <div class="popcontrol"><control :food="food"></control></div> 
             </li>
          </ul>
-     </div> 
-  
+     </div>  
     </van-popup>
-    <div style="display: block;" id="cover"></div>
+    <div style="display: block" id="cover"></div>
   </div>
 </template>
 
@@ -43,7 +42,7 @@ export default {
              return this.$store.state.popupShow
         },
         popShopList(){
-            return this.$store.state.orderFoods
+            return this.$store.state.selectFoods
         }
     }
 }
