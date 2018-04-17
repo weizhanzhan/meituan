@@ -3,14 +3,14 @@
     <div class="scontent">
        <div class="chartleft" @click="pupopShow">
            <div class="logowrapper">
-             <div :class="{'isshop':num>0,'slogo':num<1}">
+             <div :class="{'isshop':Allcount>0,'slogo':Allcount<1}">
                 <img width="24" class="simgs" height="24" :src="shopicon.pic" />
                 <div class="totalCount">
-                   <span class="counttext">{{num}}</span>
+                   <span class="counttext">{{Allcount}}</span>
                  </div>
              </div>
            </div>
-           <div :class="{'cpriceN':true||num,'cpriceY':num>0} ">￥{{allPrice}}</div>
+           <div :class="{'cpriceN':true||Allcount,'cpriceY':Allcount>0} ">￥{{allPrice}}</div>
            <div class="des">另需配送费{{deliveryPrice}} 元 </div>
        </div>
        <div class="chartright">
@@ -53,7 +53,6 @@ export default {
                 },
             ],
             dropBalls:[],
-            popshow:false
             
         }
     },
@@ -61,10 +60,14 @@ export default {
     },
     methods:{
         pupopShow(){
-            console.log('sss')
-            this.popshow=!this.popshow
-          //  this.popshow=true
-            this.$store.commit('setPopupShow',this.popshow)
+            if(this.popShopList.length!=0){
+                if(this.popupshow){ 
+                    this.$store.commit('setPopupShow',false)
+                }
+                else{
+                    this.$store.commit('setPopupShow',true)
+                }
+            }
             
         }
     },
@@ -75,11 +78,36 @@ export default {
         num(){
             return this.$store.state.orderFoods.length
         },
+         popupshow(){            
+             return this.$store.state.popupShow
+        },
+        // allPrice(){
+        //     var foods=this.$store.state.orderFoods
+        //     var allprice=foods.reduce((prcieSum,food)=>{
+        //          return prcieSum+food.price
+        //     },0)
+        //     return allprice
+        // },
+        popShopList(){
+            return this.$store.state.selectFoods
+        },
+        Allcount(){
+            if(this.popShopList.length==0){
+                return 0
+            }
+            else{
+                var allcount=this.popShopList.reduce((prcieSum,food)=>{
+                    return prcieSum+food.count
+                },0)
+                return allcount
+            }
+
+        },
         allPrice(){
-            var foods=this.$store.state.orderFoods
-            var allprice=foods.reduce((prcieSum,food)=>{
-                 return prcieSum+food.price
-            },0)
+            var allprice=0
+            this.popShopList.forEach(listfood=>{
+                     allprice+=listfood.count*listfood.price
+            })
             return allprice
         }
        
@@ -95,6 +123,11 @@ export default {
                     return
                 }
             }
+        },
+        popShopList(val){
+            console.log('2332')
+            if(val.length==0)
+               this.$store.commit('setPopupShow',false)
         }
     },
      transitions:{

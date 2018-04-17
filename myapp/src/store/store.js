@@ -10,7 +10,8 @@ export const store=new Vuex.Store({
         orderFoods:[],
         popupShow:false,
         Allfood:[],
-        selectFoods:[]
+        selectFoods:[],
+        detailShow:false
     },
     getters:{
         //获取属性状态
@@ -18,7 +19,6 @@ export const store=new Vuex.Store({
     mutations:{
         //改变属性状态
         getFoods(state,data){
-            console.log(data,'data')
             state.Allfood=data
         },
         setTab(state,data){
@@ -28,24 +28,29 @@ export const store=new Vuex.Store({
             state.adddom=data
         },
         setOrder(state,data){         
-            console.log(data.count,state.Allfood,'vuex')
             if(data.count>0){
                 state.selectFoods.push(data)
             }             
         },
         deleteOrder(state,data){
-            console.log('执行了一次')
-            // let foods=state.orderFoods
-            // var index=foods.indexOf(data)
-            // state.selectFoods.splice(index,1)
             for(var i=0;i<state.selectFoods.length;i++)
             {
                 if(state.selectFoods[i].name==data.name)
                    state.selectFoods.splice(i,1)
             }
         },
+        emptyFoodList(state,data){
+            state.selectFoods.forEach(food=>{
+                food.count=0
+            })
+            state.selectFoods=data
+        },
         setPopupShow(state,data){
             state.popupShow=data
+        },
+        setDetail(state,data){
+            state.detailShow=data
+
         }
     },
     actions:{

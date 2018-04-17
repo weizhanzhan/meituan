@@ -17,7 +17,7 @@
         <li class="foodlist listhook" v-for="(item,index) in goods" :key="index">
           <div class="ftitle">{{item.name}}</div>
           <ul>
-            <li class="food_item" v-for="(food,index) in item.foods" :key="index">
+            <li class="food_item" v-for="(food,index) in item.foods"  @click="detail(food)" :key="index">
                 <div class="ficon">
                   <img width="57" height="57" :src="food.icon" />
                 </div>
@@ -41,7 +41,8 @@
       </ul>
     </div>  
   </div>
-  <popup></popup>
+   <fooddetail v-if="detailShow" :selectFoodDetail="selectFoodDetail"></fooddetail>
+   <popup></popup>
    <shopchart :ishop="ishop" :deliveryPrice="deliveryPrice"></shopchart>
 </div>
 </template>
@@ -52,6 +53,7 @@ import Bscroll from 'better-scroll'
 import Seller from '../../../static/seller.json'
 import Control from './control/control'
 import Popup from './popup/popup'
+import Fooddetail from './fooddetail/fooddetail'
 export default {
   props:[
         'deliveryPrice'
@@ -61,11 +63,11 @@ export default {
            listHeight:[],//包括每一个区间的长度
            scrollY:0,
            ishop:false,
-           countTotal:0
+           countTotal:0,
+           selectFoodDetail:{}
          }
        },
-       created(){
-        
+       created(){     
          this.$store.commit('getFoods',Seller.goods)
          this.$nextTick(()=>{
             this.init()//创建better-scrool
@@ -77,6 +79,9 @@ export default {
          goods(){
            return this.$store.state.Allfood
          },
+          detailShow(){
+            return this.$store.state.detailShow 
+        },
          currentIndex(){//求现在位置的索引
            for(let i=0;i<this.listHeight.length;i++){
              let height1=this.listHeight[i]//一个区间的开始
@@ -100,7 +105,11 @@ export default {
        watch:{
        },
        methods:{
-        
+         detail(food){
+           console.log(food)
+           this.selectFoodDetail=food
+           this.$store.commit('setDetail',true)
+         },
          selectMenu(index,event){
            if(event._constructed)//scroll中会把原生click，prevent掉
            {
@@ -141,7 +150,7 @@ export default {
          },
        },
        components:{
-         Shopchart,Control,Popup
+         Shopchart,Control,Popup,Fooddetail
        }
 }
 </script>
@@ -247,5 +256,4 @@ export default {
   background: #fff;
   font-weight: 700
 }
-
 </style>

@@ -2,14 +2,14 @@
   <div>
     <!-- <div class="reduse" > -->
      <transition name="fade" >
-       <img  width="24"  height="24" v-show="food.count>0" :src="red.pic" @click="goodRed()"/> 
+       <img  width="24"  height="24" v-show="food.count>0" :src="red.pic" onClick="event.cancelBubble = true" @click="goodRed()"/> 
     </transition>
 
     <div class="ortotal">
         <span v-show="food.count>0">{{food.count}}</span>
     </div>
     <div class="fadd" ref="add">
-        <img width="24" height="24" :src="add.pic" @click="goodAdd()"/>
+        <img width="24" height="24" :src="add.pic" @click="goodAdd()" onClick="event.cancelBubble = true"/>
     </div>
   </div>
 </template>
@@ -33,7 +33,6 @@ export default {
           }
       },
     created(){
-
     },
     mounted(){
       

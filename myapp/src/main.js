@@ -10,7 +10,9 @@ import { Tabbar, TabbarItem } from 'vant';
 import { Tab, Tabs } from 'vant';
 import {store} from './store/store'
 import { Popup } from 'vant';
+import { Icon } from 'vant';
 
+Vue.use(Icon);
 Vue.use(Popup);
 
 Vue.use(Tab).use(Tabs);

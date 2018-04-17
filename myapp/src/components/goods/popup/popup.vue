@@ -1,15 +1,17 @@
 <template>
    <div class="popup" v-if="show">
-    <van-popup v-model="show" position="bottom" class="pop" :overlay="false">
+    <van-popup v-model="show" position="bottom" class="pop" :overlay="true">
       <div class="popshop">
          <h1 class="poptitle"> 购物车</h1>
-         <span class="popempty">清空</span>
+         <span class="popempty" @click="emptyFoodList()">清空</span>
      </div>
       <div class="popcontent" ref="popfood">
          <ul>
             <li  class="popli" v-for="(food,index) in popShopList"  :key="index">
              <div class="popfoodname"> {{food.name}}</div>
-             <div class="popcontrol"><control :food="food"></control></div> 
+              <span class="popfoodprice">￥{{food.price*food.count}}</span>
+             <div class="popcontrol">                
+                 <control :food="food"></control></div> 
             </li>
          </ul>
      </div>  
@@ -30,15 +32,19 @@ export default {
     watch:{
         popshow(val){
           this.show=val 
+        },
+        show(val){
+            this.$store.commit('setPopupShow',val)
         }
     },
     components:{Control},
+    methods:{
+        emptyFoodList(){
+            this.$store.commit('emptyFoodList',[])
+        }
+    },
     computed:{
-        // show(){
-        //     return this.$store.state.popupShow
-        // }
-        popshow(){
-             
+        popshow(){           
              return this.$store.state.popupShow
         },
         popShopList(){
@@ -58,7 +64,7 @@ export default {
     height:46px;
     /* background: #141d27; */
     
-    z-index: 0;
+    z-index: 3;
 }
 .pop{
     bottom:46px;
@@ -95,11 +101,20 @@ export default {
     display: flex;
 }
 .popfoodname{
-     flex:0 0 80px;
+     flex:1;
      display: inline;
+     line-height: 30px;
+     font-size: 14px;
+     color: #07111b
 } 
+.popfoodprice{
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #f01414;
+}
 .popcontrol{
-    flex: 1;
+    flex: 0 0 80px;
     text-align:right;
     margin-right: 20px;
     display: inline;
