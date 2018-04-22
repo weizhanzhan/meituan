@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="detail" v-show="detailShow">
       <div class="imgheader"><img class="imgdetail" :src="selectFoodDetail.image"/></div>
       <div class="dcontent">
@@ -32,13 +33,32 @@
                   <span class="block_negative" id="3" :class="{activeColor:isactive==ratAll.dislikes.id}" @click="slect($event)">吐槽{{ratAll.dislikes.num}}</span>
               </div>
               <div class="switch" @click="switchs()"> 
-                    <span ><van-icon class="switch_icon" name="checked" :style="[isSelect? {color:look}:'']" /></span><span>只看有内容的评价</span>
+                    <span class="iconspan" ><van-icon class="switch_icon"  name="checked" :style="[isSelect? {color:look}:'']" /></span>
+                    <span>只看有内容的评价</span>
               </div>
           </div>
       </div>
-      <div>{{selectFoodDetail.name}}</div><button @click="goback">返回</button>
-      
+      <div class="rating-wraper">
+          <ul>
+              <li class="rates" v-for="(rate,index) in typeRate" v-if="isSelect?rate.text!='':rate.text!=undefined" :key="index">
+                  <div class="rate-name">
+                     <span class="rate-name-title"> {{rate.username}}</span>
+                     <img class="rate-img" :src="rate.avatar" />
+                  </div>
+                  <div class="rate-time">{{rate.rateTime}}</div>
+                  <div class="rate-text">
+                      <img :src="rate.rateType?down.pic:up.pic" class="iconclass"/>
+                      {{rate.text}}
+                  </div>
+              </li>
+          </ul>
+      </div>
   </div>
+ 
+  <div class="rate-back">
+       <img :src="back.pic"  width="30" class="rate-back-img"  height="30" @click="goback" />
+  </div>
+</div>
 </template>
 
 <script>
@@ -58,8 +78,12 @@ export default {
           food:'',
           isactive:'',
           look:"green",
-          isSelect:false
-
+          isSelect:false,
+          up:{pic: require('./img/up.png'),text:'up'},
+          down:{pic: require('./img/down.png'),text:'down'},
+          selectRate:'',
+          backsvg:{pic: require('./img/backsvg.svg'),text:'返回svg'},
+          back:{pic: require('./img/back.png'),text:'返回'},
         }
     },
     methods:{
@@ -67,16 +91,25 @@ export default {
             this.$store.commit('setDetail',false)
         },
         buy(val){
-            console.log(val)
              Vue.set(val,'count',1)
-             this.$store.commit("setOrder",val)
-           
+             this.$store.commit("setOrder",val)          
         },
         slect(val){
-            this.isactive=val.target.id
+            this.isactive=val.target.id           
+            if(val.target.id==1)
+               this.selectRate=''
+            else if(val.target.id==2)
+               this.selectRate=0
+            else
+               this.selectRate=1
+            
         },
         switchs(){
             this.isSelect=!this.isSelect
+        },
+        rateType(val){
+            if(val)
+            return `<img :src="${this.up.pic}" />`
         }
     },
     components:{
@@ -102,6 +135,13 @@ export default {
             });
             rates.All.num=ratings.length
             return rates
+        },
+        typeRate(){
+          let rates=this.selectFoodDetail.ratings
+            return  rates.filter(rate=>{
+                var b=JSON.stringify(rate.rateType)
+                return b.match(this.selectRate)
+            })  
         },
     }
 
@@ -255,6 +295,70 @@ export default {
     border-bottom: 1px solid rgba(7,17,27,.1);
 }
 .switch_icon{
+    
+}
+.rating-wraper{
+    padding: 18px;
+}
+.rates{
+    position:relative;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(7,17,27,.1);
+}
+.rate-name{
+    position: absolute;
+    top:16px;
+    right: 0;
+    line-height: 12px
+}
+.rate-name-title{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 10px;
+    color: #93999f;
+    margin-right: 6px;
+
+}
+.rate-img{
+    position: relative;
+    bottom:3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%
+}
+.rate-time{
+    margin-bottom: 6px;
+    line-height: 12px;
+    font-size: 10px;
+    color: #93999f;
+}
+.rate-text{
+    line-height: 16px;
+    font-size: 12px;
+    color: #07111b;
+}
+.iconclass{
+    position: relative;
+    bottom:2px;
+    line-height: 24px;
+    margin-right: 4px;
+    width: 12px;
+}
+.iconspan{
+    position: relative;
+    top:3px
+} 
+.rate-back{
+     position: fixed;
+     top: 25px;
+     left: 20px;
+     width: 35px;
+     height: 35px;
+     border-radius: 50%;
+     background-color: rgba(0,0,0,.2);
+     z-index: 40;
+}
+.rate-back-img{
     
 }
 </style>

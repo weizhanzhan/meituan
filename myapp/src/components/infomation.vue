@@ -33,8 +33,8 @@ export default {
     next()
   },
   created(){
-     this.$router.push({name:'点菜'})
-     console.log(this.seller)
+   //  this.$router.push({name:'点菜'})
+     this.onClick('点菜')
   },
   components:{
     Goodshead,
@@ -49,8 +49,7 @@ export default {
   },
   methods:{
     onClick(index,title) {
-
-      this.selectTab=index
+       this.selectTab=index
        this.$router.push({name:index})
      }
   }

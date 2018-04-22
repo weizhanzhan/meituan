@@ -92,7 +92,7 @@ imgall{
         overflow: hidden;
     }
     .imgpic{
-        width: 100px;
+        /* width: 100px; */
         height: 100px;
     }
    .imgicon{

@@ -24,7 +24,13 @@ Vue.config.productionTip = false
 Vue.prototype.$http=axios
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers['XPS-Version'] = '1.0.0'
-
+// import up from './components/goods/fooddetail/img/up.png'
+// Vue.filter('filter-img',function(val){
+//      console.log(val)
+//      if(val==0){
+//        return `<img :src="${up}"/>`
+//      }
+// })
 
 /* eslint-disable no-new */
 new Vue({

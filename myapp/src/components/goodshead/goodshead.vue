@@ -24,7 +24,7 @@
       </div>
       <div class="back" @click="$router.push('./')">
           <!-- <img width="35"  height="34" :src="back.pic" /> -->
-             <img :src="backsvg.pic"  width="20" class="bimg"  height="20" />
+             <img :src="back.pic"  width="30" class="bimg"  height="30" />
       </div>
   </div>
 </template>
@@ -110,7 +110,7 @@ export default {
     z-index: 1;
 }
 .bimg{
-    margin-left: 5px;
-    margin-top: 3px
+    /* margin-left: 5px;
+    margin-top: 3px */
 }
 </style>

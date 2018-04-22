@@ -125,7 +125,6 @@ export default {
             }
         },
         popShopList(val){
-            console.log('2332')
             if(val.length==0)
                this.$store.commit('setPopupShow',false)
         }

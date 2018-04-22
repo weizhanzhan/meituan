@@ -106,7 +106,6 @@ export default {
        },
        methods:{
          detail(food){
-           console.log(food)
            this.selectFoodDetail=food
            this.$store.commit('setDetail',true)
          },
