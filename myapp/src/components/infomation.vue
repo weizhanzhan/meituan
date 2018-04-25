@@ -9,7 +9,7 @@
     </van-tabs> -->
       <div class="tabTitle" :class="{tabitem:index==selectTab}" v-for="index in menu"  @click="onClick(index)" :key="index">{{index}}</div>
     </div>
-    <router-view :deliveryPrice="seller.deliveryPrice"></router-view>
+    <router-view :deliveryPrice="seller.deliveryPrice" :sellers="sellers"></router-view>
   
 </div> 
 </template>
@@ -33,6 +33,7 @@ export default {
     next()
   },
   created(){
+    console.log(Seller)
    //  this.$router.push({name:'点菜'})
      this.onClick('点菜')
   },
@@ -45,6 +46,9 @@ export default {
     },
     goods(){
       return Seller.goods
+    },
+    sellers(){
+      return Seller
     }
   },
   methods:{
