@@ -87,7 +87,7 @@ export default {
 }
 .brand{
    float: left;
-   margin-top: -4px
+   margin-top: 0px
     
 }
 .text{

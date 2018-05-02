@@ -40,7 +40,7 @@
       </div>
       <div class="rating-wraper">
           <ul>
-              <li class="rates" v-for="(rate,index) in typeRate" v-if="isSelect?rate.text!='':rate.text!=undefined" :key="index">
+              <li class="rates" v-for="(rate,index) in typeRate" v-if="isSelect?rate.text!='':rate.text!=undefined" :key="'a'+index">
                   <div class="rate-name">
                      <span class="rate-name-title"> {{rate.username}}</span>
                      <img class="rate-img" :src="rate.avatar" />

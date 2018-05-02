@@ -13,18 +13,22 @@
        </div>
        <div class="rating-menu">
            <ul>
-               <li v-for="(rate,index) in rating" class="rating-items" :key="index">
+               <li v-for="(rate,index) in selectTypeRating" v-if="switchvalue?rate.text!='':rate.text!=undefined" class="rating-items" :key="'b'+index">
                    <div class="rating-items-avatar">
                        <img class="rating-items-avatarimg" :src="rate.avatar">
                    </div>
                    <div class="rating-items-content">
                        <h1 class="rating-items-content-name">{{rate.username}}</h1>
                        <div class="rating-items-content-star">
-                           <img width="10" v-for="(img,index) in rate.score"  :key="index"  :src="stars.star[2].src" />
-                           <img v-for="(img,index) in 5-rate.score" width="10" :key="index" :src="stars.star[0].src" />
+                           <img width="10" v-for="(img,index) in rate.score"  :key="'c'+index"  :src="stars.star[2].src" /><img v-for="(img,index) in 5-rate.score" width="10" :key="'d'+index" :src="stars.star[0].src" />
                        </div>
-                       <p class="rating-items-content-text"> {{rate.text}}</p>
-                      
+                       <p class="rating-items-content-text" v-if="rate.text"> {{rate.text}}</p>
+                       <div class="rating-items-recommend">
+                           <img v-if="rate.rateType==0"  :src="up.pic" class="recommend-iconclass"/>
+                           <span class="recommend-item" v-for="(rec,index) in rate.recommend" :key="index">{{rec}}</span>
+                       </div>
+                       <div class="recommend-time">{{filterTime(rate.rateTime)}}</div>
+                       
                    </div>
                </li>
            </ul>
@@ -41,7 +45,9 @@ export default {
         return{
             selectId:'',
             switchvalue:false,
-            lookcolor:'green'
+            lookcolor:'green',
+            isType:'',
+            up:{pic: require('./img/up.png'),text:'up'},
         }
     },
     created(){
@@ -49,10 +55,22 @@ export default {
     },
     methods:{
         selcttype(val){
+             console.log(val)
              this.selectId=val
+             if(this.selectId==1)
+                 this.isType=''
+             else if(this.selectId==2)
+                 this.isType=0
+             else
+                 this.isType=1
         },
         switchs(){
             this.switchvalue=!this.switchvalue
+        },
+        filterTime(val){
+            var unixTimestamp = new Date(val) 
+            var commonTime = unixTimestamp.toLocaleString()
+            return commonTime
         }
     },
     computed:{
@@ -71,12 +89,18 @@ export default {
             return rnum
 
         },
+        selectTypeRating(){
+            
+             return this.rating.filter(rate=>{
+                 var b=JSON.stringify(rate.rateType)
+                 return b.match(this.isType)
+            })
+        },
         stars(){
           console.log(star)
           return star
         },
     }
-
 }
 </script>
 
@@ -151,11 +175,36 @@ export default {
     color:#07111b;
     margin-bottom: 4px;
 }
-.rating-items-content-star{}
+.rating-items-content-star{
+    margin-top: -1rem;
+}
 .rating-items-content-text{
     line-height: 18px;
     font-size: 14px;
     color: #07111b;
+    margin-top: 0px;
     margin-bottom: 8px;
+}
+.recommend-iconclass{
+    width: 9px;
+    display: inline-block;
+    margin: 0 8px 4px 0;
+}
+.recommend-item{
+    margin-right: 5px;
+    padding: 0 6px;
+    font-size: 10px;
+    border: 1px solid rgba(7,17,27,.1);
+    border-radius: 5px;
+    color: #93999f;
+    background-color: #fff;
+}
+.recommend-time{
+    position: absolute;
+    top:0;
+    right: 0;
+    line-height: 12px;
+    font-size: 10px;
+    color: #93999f;
 }
 </style>
