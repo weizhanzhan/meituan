@@ -4,13 +4,13 @@
        <div class="overview-collect">
           <div class="collect-name">{{seller.name}}</div>
           <div class="collect-star">
-             <img v-for="(s,index) in seller.deliveryPrice" :key="index" :src="stars.star[2].src"/><img v-for="(s,index) in 5-seller.deliveryPrice" :key="index" :src="stars.star[0].src"/>
+             <img v-for="(s,index) in seller.deliveryPrice" :key="index+'a'" :src="stars.star[2].src"/><img v-for="(s,index) in 5-seller.deliveryPrice" :key="index" :src="stars.star[0].src"/>
              <span class="collect-ratingcount">{{seller.ratingCount}}</span>
           </div>
           <div class="collect-sellcount">月售{{seller.sellCount}}单</div>
-          <div class="collect-icon">
-            <van-icon name="like" />
-            <div class="collect-icon-text">未收藏</div>
+          <div class="collect-icon" @click="sc()">
+            <van-icon  name="like"  :style="[isSc?{color:'red'}:'']" />
+            <div class="collect-icon-text">{{isSc?scText[0]:scText[1]}}</div>
           </div>
        </div>
        <div class="overview-param">
@@ -33,10 +33,38 @@
             </span>
           </div>
        </div>
+    
+    <div class="cross-line"></div>
+    <div class="bussiness-notice">
+       <h1 class="notice-title">公告与活动</h1>
+       <div class="notice-text">{{seller.bulletin}}</div>
+       <ul>
+         <li class="notice-li" v-for="(support,index) in seller.supports" :key="index+'b'">
+           <img :src="img[support.type].pic"/>
+           <span class="notice-support">{{support.description}}</span>
+         </li>
+       </ul>
     </div>
-    <div class="bussiness-notice"></div>
-    <div class="bussiness-photo"></div>
-    <div class="bussiness-info"></div>
+    <div class="cross-line"></div>
+    <div class="bussiness-photo">
+      <h1 class="notice-title">商家实景</h1>
+      <div class="notice-pic-wrapper"  ref="piclist">
+      <ul class="title-pic" ref="picListRef">
+        <li class="title-pic-list" >
+             <img v-for="(pic,index) in seller.pics" :key="index+'pic'" :src="pic" >
+        </li>
+      </ul>
+      </div>
+    </div>
+
+    <div class="cross-line"></div>
+    <div class="bussiness-info">
+      <h1 class="notice-title">商家信息</h1>
+      <ul>
+        <li class="info-item" v-for="(info,index) in seller.infos" :key="index+'info'">{{info}}</li>
+      </ul>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -46,7 +74,16 @@ import Bscroll from 'better-scroll'
 export default {
     data(){
       return{
-        
+        img:[
+          {pic:require('./img/type0.png'),type:0},
+          {pic:require('./img/type1.png'),type:1},
+          {pic:require('./img/type2.png'),type:2},
+          {pic:require('./img/type3.png'),type:3},
+          {pic:require('./img/type4.png'),type:4}
+
+        ],
+        isSc:false,
+        scText:['已收藏','未收藏']
       }
     },
     props:['sellers'],
@@ -54,6 +91,7 @@ export default {
       console.log(this.seller)
       this.$nextTick(()=>{
         this.init()
+        this.picinit()
       })
     },
     computed:{
@@ -65,11 +103,30 @@ export default {
       }
     },
     methods:{
+       sc(){
+         this.isSc=!this.isSc
+       },
        init(){
         this.menuwrapper=new Bscroll(this.$refs.bussiness,{//定义菜单scroll
              click:true//scroll中会把原生click，prevent掉，我们要打开
            })
-        }
+        },
+        picinit(){
+          // 初始化图片横向滚动
+          // 手动设置横向宽度
+          const picWidth = 120
+          const margin = 6
+          let width = (picWidth + margin) * this.seller.pics.length - margin
+          this.$refs.picListRef.style.width = width + 'px'
+
+            this.picScroll = new Bscroll(this.$refs.piclist, {
+              click: true,
+              scrollX: true,
+              eventPassthrough: 'vertical'
+            })
+
+         }
+        
     }
 
 }
@@ -83,6 +140,11 @@ export default {
   overflow: hidden;
   left: 0;
   width: 100%;
+}
+.cross-line{
+      width: 100%;
+    height: 16px;
+    background-color: #ebebeb;
 }
 .bussiness-overview{
   position: relative;
@@ -164,5 +226,75 @@ export default {
   display: inline-block;
   flex: 1;
   text-align: center;
+}
+.bussiness-notice{
+  padding: 18px 18px 0;
+}
+.notice-title{
+    font-size: 14px;
+    color: #07111b;
+    margin-bottom: 12px;
+    line-height: 14px;
+}
+.notice-text{
+  padding: 8px 0 0 12px;
+  font-size: 12px;
+    line-height: 24px;
+    font-weight: 200;
+    color: #f01414;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(7,17,27,.1);
+}
+.notice-li{
+  padding: 16px 12px;
+  border-bottom: 1px solid rgba(7,17,27,.1);
+}
+.notice-li img{
+      display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    background-size: 18px 18px;
+    /* background-repeat: no-repeat; */
+}
+.notice-support{
+  font-size: 12px;
+    line-height: 16px;
+    font-weight: 200;
+    color: #07111b;
+}
+.bussiness-photo{
+  padding: 18px
+}
+.notice-pic-wrapper{
+      width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.title-pic-list{
+    display: inline-block;
+    margin-right: 6px;
+    width: 120px;
+    height: 90px;
+}
+.title-pic-list img{
+  margin-right: 6px;
+      width: 120px;
+    height: 90px;
+    border-radius: 3px;
+}
+.title-pic{
+  width: 498px
+}
+.bussiness-info{
+  padding: 18px 18px 0;
+}
+.info-item{
+  font-size: 12px;
+    line-height: 16px;
+    font-weight: 200;
+    color: #07111b;
+    padding: 16px 12px;
+    border-bottom: 1px solid rgba(7,17,27,.1);
 }
 </style>
