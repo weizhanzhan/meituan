@@ -51,11 +51,9 @@ export default {
         }
     },
     created(){
-        console.log(this.rating)
     },
     methods:{
         selcttype(val){
-             console.log(val)
              this.selectId=val
              if(this.selectId==1)
                  this.isType=''
@@ -97,7 +95,6 @@ export default {
             })
         },
         stars(){
-          console.log(star)
           return star
         },
     }

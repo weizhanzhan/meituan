@@ -1,12 +1,7 @@
 <template>
 <div>
   <goodshead :seller="seller"></goodshead>
-  <!-- <goods :goods="goods"></goods> -->
   <div class="tap">
-   <!-- <van-tabs :active="active" @click="onClick" swipeable >
-        <van-tab v-for="index in menu" :title="index"  :key="index">        
-       </van-tab>
-    </van-tabs> -->
       <div class="tabTitle" :class="{tabitem:index==selectTab}" v-for="index in menu"  @click="onClick(index)" :key="index">{{index}}</div>
     </div>
     <router-view :deliveryPrice="seller.deliveryPrice" :sellers="sellers"></router-view>
@@ -33,7 +28,6 @@ export default {
     next()
   },
   created(){
-    console.log(Seller)
    //  this.$router.push({name:'点菜'})
      this.onClick('点菜')
   },

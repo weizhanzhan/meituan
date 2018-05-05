@@ -87,18 +87,31 @@ export default {
   
 }
 .indexdiv{
-    height:160px;
-    border-bottom:1px solid rgb(235, 235, 235)
+    /* height:160px;
+    border-bottom:1px solid #ebebeb */
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+    border-bottom:1px solid #ebebeb
 }
 .sleft{
-    width:20%;
+    /* width:20%;
     float:left;
-    margin-top:20px
+    margin-top:20px */
+    flex: 0 0 90px;
+    width: 90px;
 }
 .sright{
-    width:75%;
+    /* width:75%;
     float:right;
-    margin-top:15px
+    margin-top:15px */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 .title-bar{
     height:40px;

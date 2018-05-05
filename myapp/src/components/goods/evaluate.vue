@@ -44,7 +44,6 @@ export default {
         'sellers'
     ],
     created(){
-      console.log(this.seller)
         this.$nextTick(()=>{
             this.init()//创建better-scrool
          })
@@ -61,7 +60,6 @@ export default {
         return this.sellers.seller
       },
       stars(){
-        console.log(star)
         return star
       },
       rating(){
@@ -128,7 +126,7 @@ export default {
 }
 .view-service-img{
       position: relative;
-      bottom: -2px;
+      bottom: 4px;
       display: inline-block;
       margin: 0 12px 0 12px
 }
@@ -148,7 +146,7 @@ export default {
 }
 .view-goods-img{
   position: relative;
-      bottom: -2px;
+      bottom: 4px;
   display: inline-block;
       margin: 0 12px;
 }

@@ -97,7 +97,6 @@ export default {
            var list=[];
            this.goods.forEach(good => {
              if(good.count>0){
-               console.log(good,'good')
              }
            });
          }

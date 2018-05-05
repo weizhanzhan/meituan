@@ -99,6 +99,7 @@ export default {
 }
 .popli{
     display: flex;
+    height: 40px;
 }
 .popfoodname{
      flex:1;

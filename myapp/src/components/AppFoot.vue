@@ -41,7 +41,7 @@
   <van-tabbar-item icon="shop" to="./">首页</van-tabbar-item>
   <van-tabbar-item icon="chat" to="./findidnex" dot>发现</van-tabbar-item>
   <van-tabbar-item icon="records" to="./orderindex" info="5">订单</van-tabbar-item>
-  <van-tabbar-item icon="gold-coin" info="20" to="./login" >我的</van-tabbar-item>
+  <van-tabbar-item icon="gold-coin" info="20" to="./mine" >我的</van-tabbar-item>
 </van-tabbar>
 </div>
 </template>

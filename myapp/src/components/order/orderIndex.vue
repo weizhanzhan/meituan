@@ -1,16 +1,21 @@
 <template>
-  <diV>
-     <div id="popover" class="mui-popover">
-        <ul class="mui-table-view">
-            <li class="mui-table-view-cell"><a href="#">Item1</a></li>
-            <li class="mui-table-view-cell"><a href="#">Item2</a></li>
-            <li class="mui-table-view-cell"><a href="#">Item3</a></li>
-            <li class="mui-table-view-cell"><a href="#">Item4</a></li>
-            <li class="mui-table-view-cell"><a href="#">Item5</a></li>
-        </ul>
-        </div>
-        <a href="#popover" id="openPopover" class="mui-btn mui-btn-primary mui-btn-block">打开弹出菜单</a>
-  </diV>
+<div>
+  <div v-for="(order,index) in orderFood" :key="index">
+    <van-card
+        :title="filtername(order.name)"
+        desc="香辣爆炒牛肚"  
+        num="2"
+        :price="order.min_price"
+        :thumb="order.pic_url"
+        >
+  <div slot="footer">
+    <van-button size="mini">删除</van-button>
+    <van-button size="mini">再来一单</van-button>
+  </div>
+</van-card>
+<div class="cross-line"></div>
+  </div>
+</div>
 </template>
 <script>
 import AppFoot from '../../components/AppFoot'
@@ -19,15 +24,34 @@ export default {
     name:'orderIndex',
     data(){
         return{
-            active:2
+            orderFood:[]
+
         }
+    },
+    created(){
+        this.$http.get('../../static/index-list.json')
+        .then(res=>{
+
+            this.orderFood=res.data.data.poilist
+        })
     },
     components:{
         AppFoot
+    },
+    methods:{
+        filtername(val){
+            var str=''
+            return val.substring(0,4)+"..."
+         
+        }
     }
   
 }
 </script>
 <style>
-
+.cross-line{
+    width: 100%;
+    height: 16px;
+    background-color: #ebebeb;
+}
 </style>

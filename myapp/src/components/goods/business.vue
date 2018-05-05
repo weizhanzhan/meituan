@@ -88,7 +88,6 @@ export default {
     },
     props:['sellers'],
     created(){
-      console.log(this.seller)
       this.$nextTick(()=>{
         this.init()
         this.picinit()

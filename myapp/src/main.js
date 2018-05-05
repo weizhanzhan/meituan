@@ -11,10 +11,16 @@ import { Tab, Tabs } from 'vant';
 import {store} from './store/store'
 import { Popup } from 'vant';
 import { Icon } from 'vant';
-
+import { Card } from 'vant';
+import { Button } from 'vant';
+import { Field } from 'vant';
+import { Cell, CellGroup } from 'vant';
+Vue.use(Cell).use(CellGroup);
+Vue.use(Field);
+Vue.use(Button);
+Vue.use(Card);
 Vue.use(Icon);
 Vue.use(Popup);
-
 Vue.use(Tab).use(Tabs);
 Vue.use(Tabbar).use(TabbarItem);
 Vue.use(NavBar);
