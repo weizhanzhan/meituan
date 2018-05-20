@@ -19,6 +19,7 @@
 </template>
 <script>
 import AppFoot from '../../components/AppFoot'
+import { Toast } from 'vant';
 
 export default {
     name:'orderIndex',
@@ -44,6 +45,18 @@ export default {
             return val.substring(0,4)+"..."
          
         }
+    },
+    beforeRouteEnter(to,from,next){
+        next(vm=>{
+            var islogin=vm.$store.state.loginUser.isLogin
+            if(islogin)
+               next()
+            else{
+                Toast.fail("尚未登录，请登录！");
+                vm.$router.push('/login')
+            }
+       })
+          
     }
   
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <van-nav-bar   font-size:80px
+   <van-nav-bar   font-size:80px
   title="登录注册页"
   left-text=""
   left-arrow
@@ -52,6 +52,7 @@
                 v-model="register.cpwd"
                 label="确认密码"
                 icon="clear"
+                type="password"
                 placeholder="请输入确认密码"
                 required
                 @click-icon="register.cpwd = ''"
@@ -59,7 +60,7 @@
 
             <van-field
                 v-model="register.email"
-                type="password"
+                type="email"
                 label="邮箱"
                 placeholder="请输入邮箱"
                 required
@@ -74,6 +75,7 @@
 </template>
 
 <script>
+import qs from 'qs';
 import { Toast } from 'vant';
 
 export default {
@@ -95,18 +97,73 @@ export default {
   },
   beforeRouteLeave (to, from, next) {
     this.$store.commit("setTab",true)
-    next()
+    console.log(from.path,to.path)
+    if(to.path=='/orderindex')
+       this.$router.push('/')
+    else
+       next()
   },
   methods:{
       onClickLeft(){
           this.$router.go(-1)
       },
+      isEmail(val){
+          var reyx= /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+          return reyx.test(val)
+      },
       loginBtn(){
-          console.log(123)
-          Toast.success('成功文案');
+  
+          var obj={username:this.username,password:this.password,}
+          this.$http.post('http://122.152.204.72:8082/api/meituan/login',qs.stringify(obj),{
+            header:{
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        }
+        )
+        .then(res=>{
+            if(res.data.state==1){
+               Toast.success(res.data.msg);
+               this.$store.commit('Login',{
+                   islogin:true,
+                   info:obj,
+                   token:res.data.token
+               })
+               this.$router.push('./mine')
+            }
+            else
+               Toast.fail(res.data.msg);
+        })
+         
       },
       registerBtn(){
-          Toast.fail('失败文案');
+          console.log(this.register)
+        //   var date=Date.parse(new Date())
+           var obj={
+               username:this.register.name,
+               password:this.register.pwd,
+               cpassword:this.register.cpwd,
+               email:this.register.email
+               }
+               console.log(this.isEmail(obj.email))
+            if(this.isEmail(obj.email)) {
+                this.$http.post('http://122.152.204.72:8082/api/meituan/register',
+                        qs.stringify(obj),{
+                        header:{
+                            'Content-Type': 'application/json;charset=utf-8'
+                        }
+                     }
+                    )
+                    .then(res=>{
+                        if(res.data.state==1){
+                            Toast.success(res.data.msg);
+                            this.$router.push('./login')
+                        }
+                        else
+                            Toast.fail(res.data.msg);
+                    })
+            }
+            else
+               Toast.fail('邮箱格式不正确');
       }
   }
 }

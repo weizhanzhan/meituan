@@ -41,9 +41,24 @@
       </ul>
     </div>  
   </div>
-   <fooddetail v-if="detailShow" :selectFoodDetail="selectFoodDetail"></fooddetail>
-   <popup></popup>
-   <shopchart :ishop="ishop" :deliveryPrice="deliveryPrice"></shopchart>
+   <van-popup v-model="jsPopshow">
+     <div style="width:25rem;height:15rem">
+       <div class="pop-title">结算</div>
+       <div class="pop-num">您共需支付{{jsPrice}}元</div>
+       <div class="pop-button">
+         <van-button size="normal" @click="jsBtn()">结算</van-button>
+         <van-button size="normal" @click="jsBtn()">取消</van-button>
+       </div>
+      
+     </div>
+   </van-popup>
+   <transition name="food"> 
+      <fooddetail v-if="detailShow" :selectFoodDetail="selectFoodDetail"></fooddetail>
+   </transition>
+   <transition name="food"> 
+     <popup></popup>
+   </transition>
+   <shopchart :ishop="ishop" @jspop="jspop" :deliveryPrice="deliveryPrice" :minPrice='minPrice'></shopchart>
 </div>
 </template>
 
@@ -54,17 +69,23 @@ import Seller from '../../../static/seller.json'
 import Control from './control/control'
 import Popup from './popup/popup'
 import Fooddetail from './fooddetail/fooddetail'
+import{
+  mapState
+} from 'vuex'
 export default {
   props:[
-        'deliveryPrice'
+        'deliveryPrice','minPrice'
     ],
        data(){
          return{
            listHeight:[],//包括每一个区间的长度
            scrollY:0,
+           jsPopshow:false,
+           jsPrice:'',
            ishop:false,
            countTotal:0,
-           selectFoodDetail:{}
+           selectFoodDetail:{},
+
          }
        },
        created(){     
@@ -79,6 +100,7 @@ export default {
          goods(){
            return this.$store.state.Allfood
          },
+         ...mapState(['detailShow']),
           detailShow(){
             return this.$store.state.detailShow 
         },
@@ -146,6 +168,17 @@ export default {
               this.listHeight.push(height)//获取每一个区间的高度并加入到总的高度里面
             }
          },
+         jspop(val){
+           console.log(val)
+           this.jsPopshow=val.pops
+           this.jsPrice=val.popprice
+
+         },
+         jsBtn(){
+           this.$router.push('./jiesuan')
+           this.jsPopshow=false
+
+         }
        },
        components:{
          Shopchart,Control,Popup,Fooddetail
@@ -253,5 +286,33 @@ export default {
   z-index: 10;
   background: #fff;
   font-weight: 700
+}
+.pop-button{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align:center;
+}
+.pop-title{
+    text-align: center;
+    padding-left: 0;
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
+.pop-num{
+  color: #999;
+    margin: 0;
+     margin-top: 20px;
+    text-align: center;
+    line-height: 36px;
+}
+.food-enter-active, .food-leave-active{
+  transition: opacity 0.5s;
+}
+.food-enter, .food-leave-to{
+  opacity: 0;
 }
 </style>

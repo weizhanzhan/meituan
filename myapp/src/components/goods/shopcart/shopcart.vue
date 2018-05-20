@@ -13,14 +13,10 @@
            <div :class="{'cpriceN':true||Allcount,'cpriceY':Allcount>0} ">￥{{allPrice}}</div>
            <div class="des">另需配送费{{deliveryPrice}} 元 </div>
        </div>
-       <div class="chartright">
-          <div class="pay">{{price}}起送</div>
+       
+       <div class="chartright" :style="[allPrice>=minPrice?{background:bk,color:'#fff'}:'']" @click="pshow()">
+          <div class="pay" >{{deliverys}}</div>
       </div>
-      <!-- <div class="ball-container">
-          <transition name="in" v-for="(ball,index) in balls" v-if="ball.show" :key="index"> 
-               <div class="inner"></div>
-          </transition>
-      </div> -->
     </div>
   </div>
 </template>
@@ -28,13 +24,15 @@
 <script>
 export default {
     props:[
-        'deliveryPrice'
+        'deliveryPrice','minPrice'
     ],
     data(){
         return{
             shopsvg:{pic: require('./img/shopping_cart.svg'),text:'shopsvg'},
             shopicon:{pic: require('./img/cart.png'),text:'shopicon'},
             price:10,
+            bk:'#1296db',
+            popshow:false,
             balls:[
                 {
                     show:false
@@ -69,6 +67,13 @@ export default {
                 }
             }
             
+        },
+        pshow(){
+            if(this.allPrice>=this.minPrice){
+                this.popshow=!this.popupshow
+                var obj={pops:this.popshow,popprice:this.allPrice}
+                this.$emit('jspop', obj)
+            }
         }
     },
     computed:{
@@ -81,13 +86,6 @@ export default {
          popupshow(){            
              return this.$store.state.popupShow
         },
-        // allPrice(){
-        //     var foods=this.$store.state.orderFoods
-        //     var allprice=foods.reduce((prcieSum,food)=>{
-        //          return prcieSum+food.price
-        //     },0)
-        //     return allprice
-        // },
         popShopList(){
             return this.$store.state.selectFoods
         },
@@ -109,6 +107,13 @@ export default {
                      allprice+=listfood.count*listfood.price
             })
             return allprice
+        },
+        deliverys(){
+            if(this.minPrice-this.allPrice>0)
+               return `还差${this.minPrice-this.allPrice}元起送`
+            else
+               return '结算'
+           // return this.minPrice-this.allPrice
         }
        
     },
@@ -175,7 +180,6 @@ export default {
 </script>
 
 <style>
-
 .shopchart{
     left: 0;
     bottom: 0;
@@ -190,8 +194,11 @@ export default {
 
 }
 .scontent{
-  display: flex;
-  background-color: #141d27;
+      display: flex;
+    width: 100%;
+    height: 48px;
+    font-size: 0;
+    background-color: #141d27;
 }
 .chartleft{
   flex: 1
@@ -205,6 +212,7 @@ export default {
 .pay{
     height: 48px;
     line-height: 48px;
+    width: 100%;
     font-size: 12px;
     font-weight: 700;
 }
@@ -301,5 +309,11 @@ export default {
      border-radius: 50%;
      background: rgb(0,160,220);
      transition:all 0.4s
+ }
+ .deliver{
+     /* flex: 0 0 105px;
+    width: 100%;
+    text-align: center;
+     background: rgb(0,160,220); */
  }
 </style>

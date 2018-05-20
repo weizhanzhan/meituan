@@ -2,11 +2,10 @@
 <div>
   <div style=" overflow:scroll">
     <div class="slider">
-      <mt-swipe :auto="3000">
-      <mt-swipe-item v-for="(item,index) in Img" :key="index">
-          <img :src="item.src">
-        </mt-swipe-item>
-      </mt-swipe>
+      <van-swipe :autoplay="3000">
+        <van-swipe-item v-for="(item,index) in Img" :key="index"> <img :src="item.src">
+        </van-swipe-item>
+</van-swipe>
     </div>
     <table width="100%" style="margin-top:2%">
       <tr>

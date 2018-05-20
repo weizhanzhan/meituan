@@ -4,8 +4,9 @@
   <div class="tap">
       <div class="tabTitle" :class="{tabitem:index==selectTab}" v-for="index in menu"  @click="onClick(index)" :key="index">{{index}}</div>
     </div>
-    <router-view :deliveryPrice="seller.deliveryPrice" :sellers="sellers"></router-view>
-  
+    <transition name="food">
+      <router-view :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :sellers="sellers"></router-view>
+    </transition>
 </div> 
 </template>
 <script>
@@ -28,7 +29,6 @@ export default {
     next()
   },
   created(){
-   //  this.$router.push({name:'点菜'})
      this.onClick('点菜')
   },
   components:{
@@ -36,6 +36,7 @@ export default {
   },
   computed:{
     seller(){
+     
       return Seller.seller
     },
     goods(){
@@ -71,5 +72,11 @@ export default {
  .tabitem{
    color: red
  }
+ .food-enter-active, .food-leave-active{
+  transition: opacity 0.5s;
+}
+.food-enter, .food-leave-to{
+  opacity: 0;
+}
   </style>
 

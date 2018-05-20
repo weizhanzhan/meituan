@@ -15,6 +15,11 @@ import { Card } from 'vant';
 import { Button } from 'vant';
 import { Field } from 'vant';
 import { Cell, CellGroup } from 'vant';
+import { SubmitBar } from 'vant';
+import { Swipe, SwipeItem } from 'vant';
+
+Vue.use(Swipe).use(SwipeItem);
+Vue.use(SubmitBar);
 Vue.use(Cell).use(CellGroup);
 Vue.use(Field);
 Vue.use(Button);

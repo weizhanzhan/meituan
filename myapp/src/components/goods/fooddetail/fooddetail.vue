@@ -13,8 +13,10 @@
           </div>
           <div class="dcontrol">
               <div>
+                  <transition name="food"> 
                    <control v-if="selectFoodDetail.count>0" :food="food" ></control>
                    <div  v-if="!selectFoodDetail.count" class="dshopchart" @click="buy(selectFoodDetail)">放入购物车</div>
+                  </transition>
               </div>
           </div>
       </div>
@@ -360,5 +362,11 @@ export default {
 }
 .rate-back-img{
     
+}
+ .food-enter-active, .food-leave-active{
+  transition: opacity 0.5s;
+}
+.food-enter, .food-leave-to{
+  opacity: 0;
 }
 </style>

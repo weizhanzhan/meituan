@@ -5,8 +5,9 @@
       <div class="avatar-wrapper">
         <img :src="tx.pic" />
       </div>
-      <div class="name-wrapper" @click="$router.push('./login')">
-        <span class="mine-name">登录</span>
+      <div class="name-wrapper" @click="user.isLogin?$router.push('./info'):$router.push('./login')">
+        <span class="mine-name" v-if="!user.isLogin">登录</span>
+        <span class="mine-name" v-if="user.isLogin">{{user.info.username}}</span>
         <span class="mine-desc">个人信息></span>
       </div>
     </div>
@@ -50,13 +51,21 @@
 </template>
 <script>
 export default {
-  data(){
-    return{
-       tx:{pic:require('./img/tx.jpg')}
-    }
-  },
+   data(){
+      return{
+        tx:{pic:require('./img/tx.jpg')}
+      }
+     },
      components:{
 
+     },
+     created(){
+       console.log(this.$store.state.loginUser)
+     },
+     computed:{
+       user(){
+         return this.$store.state.loginUser
+       }
      }
 }
 </script>
