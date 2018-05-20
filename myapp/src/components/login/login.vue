@@ -114,7 +114,7 @@ export default {
       loginBtn(){
   
           var obj={username:this.username,password:this.password,}
-          this.$http.post('http://122.152.204.72:8082/api/meituan/login',qs.stringify(obj),{
+          this.$http.post('http://**********/api/meituan/login',qs.stringify(obj),{
             header:{
                 'Content-Type': 'application/json;charset=utf-8'
             }
@@ -146,7 +146,7 @@ export default {
                }
                console.log(this.isEmail(obj.email))
             if(this.isEmail(obj.email)) {
-                this.$http.post('http://122.152.204.72:8082/api/meituan/register',
+                this.$http.post('http://*********/api/meituan/register',
                         qs.stringify(obj),{
                         header:{
                             'Content-Type': 'application/json;charset=utf-8'
