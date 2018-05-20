@@ -74,7 +74,7 @@ export default {
         id:this.info.Iid
       }
       console.log(obj)
-      this.$http.post('http://122.152.204.72:8082/api/meituan/edit',qs.stringify(obj))
+      this.$http.post('http://*********/api/meituan/edit',qs.stringify(obj))
       .then(res=>{
         console.log(res)
         Toast.success(res.data.msg);
@@ -95,7 +95,7 @@ export default {
     next(vm=>{
        vm.$store.commit("setTab",false)
        var islogin=vm.$store.state.loginUser.token
-       vm.$http.get('http://122.152.204.72:8082/api/meituan/info/'+islogin)
+       vm.$http.get('http://************/api/meituan/info/'+islogin)
      .then(res=>{
        vm.info=res.data
        console.log(vm.info)
