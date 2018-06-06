@@ -3,3 +3,4 @@
 node开发后台api接口
 axios数据交互
 better-scroll移动端滚动
+https://github.com/weizhanzhan/myapp/blob/master/viewImg/index.PNG
