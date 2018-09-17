@@ -1,6 +1,6 @@
 # :mortar_board: 美团外卖APP
 
-👉 项目演示地址：http://111.231.59.56
+👉 项目演示地址：<a href="http://111.231.59.56/meituan/meituan.html">meituan</a>
 
 基于 **Vue 全家桶 (2.x)** 制作的美团外卖APP
 
